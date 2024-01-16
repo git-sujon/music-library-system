@@ -43,6 +43,7 @@ model Artist {
   user           User             @relation(fields: [userId], references: [id])
   userId         String
   albums         Album[]
+  albumId String
   ArtistAndAlbum ArtistAndAlbum[]
 }
 
