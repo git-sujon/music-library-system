@@ -24,10 +24,20 @@ const addAlbum = async (token: string | undefined, payload: IAlbum) => {
     throw new ApiError(httpStatus.NOT_FOUND, 'User Not Exist');
   }
 
+  const { title, genre, releaseYear, artists } = payload;
+
   const result = await prisma.album.create({
     data: {
       userId: decodedUserInfo.id,
-      ...payload,
+      title,
+      genre,
+      releaseYear,
+      artists: {
+        connect: artists.map(artist => ({ id: artist })),
+      },
+    },
+    include: {
+      artists: true,
     },
   });
 

@@ -10,10 +10,15 @@ const addAlbum = z.object({
     }),
     genre: z.string({
       required_error: 'genre is required',
-    })
+    }),
+    artists: z.array(
+      z.string({
+        required_error: 'ArtistId is required',
+      }),
+    ),
   }),
 });
 
 export const AlbumValidation = {
-    addAlbum
-}
+  addAlbum,
+};

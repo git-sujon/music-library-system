@@ -24,18 +24,19 @@ const addArtist = async (token: string | undefined, payload: IArtists) => {
     throw new ApiError(httpStatus.NOT_FOUND, 'Unauthorized access');
   }
 
- 
+  const { name, albums } = payload;
+
   const result = await prisma.artist.create({
     data: {
       userId: decodedUserInfo.id,
-      name: payload.name,
+      name: name,
       albums: {
-        connect: payload.albums.map(album => ({ id: album }))
+        connect: albums.map(album => ({ id: album })),
       },
     },
     include: {
-      albums:true
-    }
+      albums: true,
+    },
   });
 
   return result;
