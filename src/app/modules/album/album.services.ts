@@ -1,6 +1,8 @@
 import { IAlbum } from './album.interface';
 import prisma from '../../../shared/prisma';
 import { UserHelpers } from '../../../helpers/userHelpers';
+import ApiError from '../../../errors/ApiError';
+import httpStatus from 'http-status';
 
 const addAlbum = async (token: string | undefined, payload: IAlbum) => {
   const decodedUserInfo = await UserHelpers.verifyDecodedUser(token);
@@ -76,12 +78,16 @@ const deleteAlbum = async (token: string | undefined, id: string) => {
       },
     });
 
-    await tx.album.delete({
+    const album = await tx.album.deleteMany({
       where: {
         id,
         userId: decodedUserInfo.id,
       },
     });
+
+    if (album.count === 0) {
+      throw new ApiError(httpStatus.NOT_FOUND, 'Artist not found');
+    }
   });
   return result;
 };

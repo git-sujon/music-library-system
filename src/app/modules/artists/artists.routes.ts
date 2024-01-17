@@ -14,4 +14,17 @@ route.post(
   ArtistController.addArtist,
 );
 
+route.get('/get-artists', ArtistController.getArtists);
+route.get('/get-artist/:id', ArtistController.getSingleArtist);
+route.patch(
+  '/update-artist/:id',
+  auth(ENUM_USER_ROLE.USER),
+  ArtistController.updateArtist,
+);
+route.delete(
+  '/delete-artist/:id',
+  auth(ENUM_USER_ROLE.USER),
+  ArtistController.deleteArtist,
+);
+
 export const ArtistRoutes = route;
