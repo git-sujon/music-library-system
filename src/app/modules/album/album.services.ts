@@ -1,28 +1,9 @@
 import { IAlbum } from './album.interface';
-import { Secret } from 'jsonwebtoken';
-import config from '../../../config';
-import { jwtHelpers } from '../../../helpers/jwtHelpers';
-import httpStatus from 'http-status';
-import ApiError from '../../../errors/ApiError';
 import prisma from '../../../shared/prisma';
+import { UserHelpers } from '../../../helpers/userHelpers';
 
 const addAlbum = async (token: string | undefined, payload: IAlbum) => {
-  if (!token) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Unauthorized access');
-  }
-  const verifyToken = jwtHelpers.verifyToken(
-    token as string,
-    config.jwt.secret as Secret,
-  );
-  const decodedUserInfo = await prisma.user.findUnique({
-    where: {
-      id: verifyToken?.userId,
-    },
-  });
-
-  if (!decodedUserInfo) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'User Not Exist');
-  }
+  const decodedUserInfo = await UserHelpers.verifyDecodedUser(token);
 
   const { title, genre, releaseYear, artists } = payload;
 
