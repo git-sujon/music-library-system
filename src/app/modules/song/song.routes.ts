@@ -14,4 +14,10 @@ route.post(
   SongController.addSong,
 );
 
+route.get(
+  '/get-songs',
+  // auth(ENUM_USER_ROLE.USER),
+  SongController.getSongs,
+);
+
 export const SongRoutes = route;

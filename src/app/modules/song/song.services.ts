@@ -26,6 +26,20 @@ const addSong = async (token: string | undefined, payload: ISong) => {
   return result;
 };
 
+
+const getSongs = async () => {
+ 
+  const result = await prisma.song.findMany({
+
+  })
+
+  return result;
+};
+
+
+
+
 export const SongServices = {
   addSong,
+  getSongs
 };
