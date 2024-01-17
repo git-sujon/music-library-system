@@ -3,3 +3,9 @@ export type ISong = {
   duration: number;
   albumId: string;
 };
+
+export type ISongFilterAbleFields = {
+  searchTerm?: string;
+  albumId?: string;
+  artistId?: string;
+};

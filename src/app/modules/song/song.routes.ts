@@ -12,12 +12,9 @@ route.post(
   auth(ENUM_USER_ROLE.USER),
   validateRequest(SongValidation.addSong),
   SongController.addSong,
-);
-
-route.get(
-  '/get-songs',
-  // auth(ENUM_USER_ROLE.USER),
-  SongController.getSongs,
-);
+  );
+  
+  route.get('/get-songs', SongController.getSongs);
+  route.get('/get-song/:id', SongController.getSingleSong);
 
 export const SongRoutes = route;
