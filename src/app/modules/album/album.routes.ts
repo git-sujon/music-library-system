@@ -16,5 +16,7 @@ route.post(
 
 route.get('/get-albums', AlbumController.getAlbums);
 route.get('/get-album/:id', AlbumController.getSingleAlbum);
+route.patch('/update-album/:id', AlbumController.updateAlbum);
+route.patch('/delete-album/:id', AlbumController.deleteAlbum);
 
 export const AlbumRoutes = route;

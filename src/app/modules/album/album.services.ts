@@ -39,11 +39,49 @@ const getSingleAlbum = async (id: string) => {
   return result;
 };
 
+const updateAlbum = async (
+  token: string | undefined,
+  id: string,
+  payload: IAlbum,
+) => {
+  const decodedUserInfo = await UserHelpers.verifyDecodedUser(token);
+  const { title, genre, releaseYear, artists } = payload;
+  const result = await prisma.album.update({
+    where: {
+      id,
+      userId: decodedUserInfo.id,
+    },
+    data: {
+      title,
+      genre,
+      releaseYear,
+      artists: {
+        connect: artists.map(artist => ({ id: artist })),
+      },
+    },
+    include: {
+      artists: true,
+    },
+  });
+  return result;
+};
 
+const deleteAlbum = async (  token: string | undefined,id: string) => {
+  const decodedUserInfo = await UserHelpers.verifyDecodedUser(token);
+  const result = await prisma.album.delete({
+    where: {
+      id,
+      userId: decodedUserInfo.id,
+    },
+  });
+  return result;
+
+}
 
 export const AlbumServices = {
   addAlbum,
   getAlbums,
   getSingleAlbum,
-
+  updateAlbum,
+  deleteAlbum
 };

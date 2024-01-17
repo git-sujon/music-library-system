@@ -30,8 +30,9 @@ const getAlbums = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getSingleAlbum = catchAsync(async (req: Request, res: Response) => {
+
   const { id } = req.params;
-  const result = await AlbumServices.getSingleAlbum(id);
+  const result = await AlbumServices.getSingleAlbum( id);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -41,8 +42,39 @@ const getSingleAlbum = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+
+const updateAlbum = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const authToken = req.headers.authorization;
+  const payload = req.body;
+  const result = await AlbumServices.updateAlbum(authToken, id, payload);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Update Album successfully',
+    data: result,
+  });
+});
+
+const deleteAlbum = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const authToken = req.headers.authorization;
+  const result = await AlbumServices.deleteAlbum(authToken, id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Delete Album successfully',
+    data: result,
+  });
+});
+
 export const AlbumController = {
   addAlbum,
   getAlbums,
   getSingleAlbum,
+  updateAlbum,
+  deleteAlbum
+
 };
