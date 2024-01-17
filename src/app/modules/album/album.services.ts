@@ -25,6 +25,25 @@ const addAlbum = async (token: string | undefined, payload: IAlbum) => {
   return result;
 };
 
+const getAlbums = async () => {
+  const result = await prisma.album.findMany();
+  return result;
+};
+
+const getSingleAlbum = async (id: string) => {
+  const result = await prisma.album.findUnique({
+    where: {
+      id,
+    },
+  });
+  return result;
+};
+
+
+
 export const AlbumServices = {
   addAlbum,
+  getAlbums,
+  getSingleAlbum,
+
 };

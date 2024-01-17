@@ -14,4 +14,7 @@ route.post(
   AlbumController.addAlbum,
 );
 
+route.get('/get-albums', AlbumController.getAlbums);
+route.get('/get-album/:id', AlbumController.getSingleAlbum);
+
 export const AlbumRoutes = route;
