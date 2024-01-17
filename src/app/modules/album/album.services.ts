@@ -66,22 +66,30 @@ const updateAlbum = async (
   return result;
 };
 
-const deleteAlbum = async (  token: string | undefined,id: string) => {
+const deleteAlbum = async (token: string | undefined, id: string) => {
   const decodedUserInfo = await UserHelpers.verifyDecodedUser(token);
-  const result = await prisma.album.delete({
-    where: {
-      id,
-      userId: decodedUserInfo.id,
-    },
+
+  const result = await prisma.$transaction(async tx => {
+    await tx.song.deleteMany({
+      where: {
+        albumId: id,
+      },
+    });
+
+    await tx.album.delete({
+      where: {
+        id,
+        userId: decodedUserInfo.id,
+      },
+    });
   });
   return result;
-
-}
+};
 
 export const AlbumServices = {
   addAlbum,
   getAlbums,
   getSingleAlbum,
   updateAlbum,
-  deleteAlbum
+  deleteAlbum,
 };

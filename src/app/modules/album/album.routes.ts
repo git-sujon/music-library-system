@@ -16,7 +16,15 @@ route.post(
 
 route.get('/get-albums', AlbumController.getAlbums);
 route.get('/get-album/:id', AlbumController.getSingleAlbum);
-route.patch('/update-album/:id', AlbumController.updateAlbum);
-route.patch('/delete-album/:id', AlbumController.deleteAlbum);
+route.patch(
+  '/update-album/:id',
+  auth(ENUM_USER_ROLE.USER),
+  AlbumController.updateAlbum,
+);
+route.delete(
+  '/delete-album/:id',
+  auth(ENUM_USER_ROLE.USER),
+  AlbumController.deleteAlbum,
+);
 
 export const AlbumRoutes = route;
