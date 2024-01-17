@@ -49,7 +49,7 @@ model Artist {
 model Song {
   id       String @id @default(uuid())
   title    String
-  duration String
+  duration Int
   album    Album  @relation(fields: [albumId], references: [id])
   albumId  String
   user     User   @relation(fields: [userId], references: [id])

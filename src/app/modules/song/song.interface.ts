@@ -1,5 +1,5 @@
 export type ISong = {
   title: string;
-  duration: string;
+  duration: number;
   albumId: string;
 };
