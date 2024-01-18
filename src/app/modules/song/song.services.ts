@@ -97,7 +97,7 @@ const getSongs = async (
             createdAt: 'desc',
           },
   });
-  // const total = await prisma.song.findMany({}).then(data => data.length);
+ 
   const total = result.length;
   return {
     meta: {
