@@ -14,8 +14,16 @@ route.post(
   ArtistController.addArtist,
 );
 
-route.get('/get-artists', ArtistController.getArtists);
-route.get('/get-artist/:id', ArtistController.getSingleArtist);
+route.get(
+  '/get-artists',
+  auth(ENUM_USER_ROLE.USER),
+  ArtistController.getArtists,
+);
+route.get(
+  '/get-artist/:id',
+  auth(ENUM_USER_ROLE.USER),
+  ArtistController.getSingleArtist,
+);
 route.patch(
   '/update-artist/:id',
   auth(ENUM_USER_ROLE.USER),

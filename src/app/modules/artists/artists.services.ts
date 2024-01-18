@@ -26,7 +26,11 @@ const addArtist = async (token: string | undefined, payload: IArtists) => {
 };
 
 const getArtists = async () => {
-  const result = await prisma.artist.findMany();
+  const result = await prisma.artist.findMany({
+    include: {
+      albums: true,
+    },
+  });
   return result;
 };
 
@@ -34,6 +38,9 @@ const getSingleArtist = async (id: string) => {
   const result = await prisma.artist.findUnique({
     where: {
       id,
+    },
+    include: {
+      albums: true,
     },
   });
 
@@ -46,10 +53,11 @@ const getSingleArtist = async (id: string) => {
 const updateArtist = async (
   token: string | undefined,
   id: string,
-  payload: IArtists,
+  payload: Partial<IArtists>,
 ) => {
   const decodedUserInfo = await UserHelpers.verifyDecodedUser(token);
   const { name, albums } = payload;
+
   const result = await prisma.artist.update({
     where: {
       id,
@@ -57,15 +65,15 @@ const updateArtist = async (
     },
     data: {
       name,
-
       albums: {
-        connect: albums.map(artist => ({ id: artist })),
+        set: albums?.map(album => ({ id: album })),
       },
     },
     include: {
       albums: true,
     },
   });
+
   return result;
 };
 

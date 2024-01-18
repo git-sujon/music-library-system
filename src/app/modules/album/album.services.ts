@@ -28,7 +28,11 @@ const addAlbum = async (token: string | undefined, payload: IAlbum) => {
 };
 
 const getAlbums = async () => {
-  const result = await prisma.album.findMany();
+  const result = await prisma.album.findMany({
+    include: {
+      artists: true,
+    },
+  });
   return result;
 };
 
@@ -36,6 +40,9 @@ const getSingleAlbum = async (id: string) => {
   const result = await prisma.album.findUnique({
     where: {
       id,
+    },
+    include: {
+      artists: true,
     },
   });
   return result;
@@ -58,7 +65,7 @@ const updateAlbum = async (
       genre,
       releaseYear,
       artists: {
-        connect: artists.map(artist => ({ id: artist })),
+        set: artists?.map(artist => ({ id: artist })),
       },
     },
     include: {

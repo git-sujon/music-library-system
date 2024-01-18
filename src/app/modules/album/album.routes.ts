@@ -14,8 +14,12 @@ route.post(
   AlbumController.addAlbum,
 );
 
-route.get('/get-albums', AlbumController.getAlbums);
-route.get('/get-album/:id', AlbumController.getSingleAlbum);
+route.get('/get-albums', auth(ENUM_USER_ROLE.USER), AlbumController.getAlbums);
+route.get(
+  '/get-album/:id',
+  auth(ENUM_USER_ROLE.USER),
+  AlbumController.getSingleAlbum,
+);
 route.patch(
   '/update-album/:id',
   auth(ENUM_USER_ROLE.USER),
