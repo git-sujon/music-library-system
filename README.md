@@ -37,7 +37,7 @@ This project involves building a Music Library System with user authentication, 
 1. **Clone the repository.**
 
     ```bash
-    git clone https://github.com/your-username/music-library-system.git
+    git clone https://github.com/git-sujon/music-library-system.git
     ```
 
 2. **Install dependencies.**
@@ -77,5 +77,5 @@ This project involves building a Music Library System with user authentication, 
 Detailed API documentation can be found in the `docs` folder.
 
 ### Postman Collection
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://www.postman.com/collections/24279792-45f35380-aabb-4a8f-9e4c-ef1f7a38047d)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://www.postman.com/dark-crater-816589/workspace/share-to-public/collection/24279792-45f35380-aabb-4a8f-9e4c-ef1f7a38047d)
 
