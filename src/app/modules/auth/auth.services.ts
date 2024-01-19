@@ -4,11 +4,10 @@ import prisma from '../../../shared/prisma';
 import bcrypt from 'bcrypt';
 import config from '../../../config';
 import { jwtHelpers } from '../../../helpers/jwtHelpers';
-import { IUserLogin } from './auth.interface';
-import { IUser } from '../user/user.interface';
+import { IUserLogin, IUserSignUp } from './auth.interface';
 import { UserRole } from '@prisma/client';
 
-const userSignUp = async (payload: IUser) => {
+const userSignUp = async (payload: IUserSignUp) => {
   const userEmailAlreadyExist = await prisma.user.findFirst({
     where: {
       email: payload.email,

@@ -72,9 +72,15 @@ This project involves building a Music Library System with user authentication, 
 
    The server will start, and you can access the API at `http://localhost:5000`.
 
+
+6. **Access the Live Application.**
+
+   Explore the live version of the Music Library System [here](https://music-library-system-iota.vercel.app).
+
+
 ## API Documentation
 
-Detailed API documentation can be found in the `docs` folder.
+Detailed API documentation can be found [here](./docs). 
 
 ### Postman Collection
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://www.postman.com/dark-crater-816589/workspace/share-to-public/collection/24279792-45f35380-aabb-4a8f-9e4c-ef1f7a38047d)
